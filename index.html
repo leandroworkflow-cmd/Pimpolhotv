@@ -1,0 +1,68 @@
+const db = globalThis.__B44_DB__ || { auth:{ isAuthenticated: async()=>false, me: async()=>null }, entities:new Proxy({}, { get:()=>({ filter:async()=>[], get:async()=>null, create:async()=>({}), update:async()=>({}), delete:async()=>({}) }) }), integrations:{ Core:{ UploadFile:async()=>({ file_url:'' }) } } };
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="512x512" href="https://media.db.com/images/public/6a3bf9e58663112b2c03128d/11a5065b4_ChatGPTImage25dejunde202621_23_56.png" />
+    <link rel="apple-touch-icon" href="https://media.db.com/images/public/6a3bf9e58663112b2c03128d/11a5065b4_ChatGPTImage25dejunde202621_23_56.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- SEO base -->
+    <title>Pimpolho TV - Vídeos Infantis Seguros 🌟</title>
+    <meta name="description" content="Plataforma de vídeos 100% segura e divertida para crianças até 12 anos! Desenhos animados, músicas infantis, histórias, jogos educativos e muito mais." />
+    <meta name="keywords" content="vídeos infantis, desenhos animados, músicas infantis, crianças, educativo, seguro, kids, histórias infantis, Pimpolho TV" />
+    <meta name="author" content="Pimpolho TV" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="Safe for Kids" />
+    <meta name="language" content="Portuguese" />
+
+    <!-- Open Graph / WhatsApp / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pimpolho TV" />
+    <meta property="og:title" content="Pimpolho TV - Vídeos Infantis Seguros 🌟" />
+    <meta property="og:description" content="Plataforma de vídeos 100% segura para crianças até 12 anos! Desenhos, músicas, histórias e muito mais." />
+    <meta property="og:image" content="https://media.db.com/images/public/6a3bf9e58663112b2c03128d/ce781f814_ChatGPTImage24dejunde202622_29_17.png" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pimpolho TV - Vídeos Infantis Seguros 🌟" />
+    <meta name="twitter:description" content="Plataforma de vídeos 100% segura para crianças até 12 anos!" />
+    <meta name="twitter:image" content="https://media.db.com/images/public/6a3bf9e58663112b2c03128d/ce781f814_ChatGPTImage24dejunde202622_29_17.png" />
+
+    <!-- Google AdSense — substitua ca-pub-XXXXX pelo seu ID real -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXX" crossorigin="anonymous"></script> -->
+
+    <!-- Theme color (mobile browser bar) -->
+    <meta name="theme-color" content="#9333ea" />
+    <meta name="msapplication-TileColor" content="#9333ea" />
+
+    <!-- Schema.org WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Pimpolho TV",
+      "description": "Plataforma de vídeos 100% segura para crianças até 12 anos",
+      "url": "https://kidstv.db.app",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://kidstv.db.app/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Children",
+        "suggestedMinAge": 0,
+        "suggestedMaxAge": 12
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

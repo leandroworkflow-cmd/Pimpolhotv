@@ -1,0 +1,27 @@
+{
+  "name": "Comment",
+  "type": "object",
+  "properties": {
+    "video_id": {
+      "type": "string",
+      "description": "ID do v\u00eddeo"
+    },
+    "author_name": {
+      "type": "string",
+      "description": "Nome do autor"
+    },
+    "content": {
+      "type": "string",
+      "description": "Texto do coment\u00e1rio"
+    },
+    "likes": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "video_id",
+    "author_name",
+    "content"
+  ]
+}

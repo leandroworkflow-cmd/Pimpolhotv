@@ -1,0 +1,18 @@
+{
+  "name": "Like",
+  "type": "object",
+  "properties": {
+    "video_id": {
+      "type": "string",
+      "description": "ID do v\u00eddeo"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "ID de sess\u00e3o an\u00f4nima do usu\u00e1rio"
+    }
+  },
+  "required": [
+    "video_id",
+    "session_id"
+  ]
+}

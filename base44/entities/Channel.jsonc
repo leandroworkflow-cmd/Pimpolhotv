@@ -1,0 +1,36 @@
+{
+  "name": "Channel",
+  "type": "object",
+  "properties": {
+    "owner_id": {
+      "type": "string",
+      "description": "ID do usu\u00e1rio dono do canal"
+    },
+    "name": {
+      "type": "string",
+      "description": "Nome do canal"
+    },
+    "description": {
+      "type": "string",
+      "description": "Descri\u00e7\u00e3o do canal"
+    },
+    "avatar_emoji": {
+      "type": "string",
+      "description": "Emoji do avatar do canal",
+      "default": "\ud83c\udfac"
+    },
+    "banner_color": {
+      "type": "string",
+      "description": "Cor do banner",
+      "default": "from-purple-500 to-pink-500"
+    },
+    "subscribers": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "owner_id",
+    "name"
+  ]
+}

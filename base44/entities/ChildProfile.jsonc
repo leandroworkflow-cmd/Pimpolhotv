@@ -1,0 +1,39 @@
+{
+  "name": "ChildProfile",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Nome da crian\u00e7a"
+    },
+    "avatar": {
+      "type": "string",
+      "description": "Emoji ou URL do avatar"
+    },
+    "age": {
+      "type": "number",
+      "description": "Idade da crian\u00e7a"
+    },
+    "age_group": {
+      "type": "string",
+      "enum": [
+        "0-3",
+        "4-6",
+        "7-9",
+        "10-12"
+      ],
+      "description": "Faixa et\u00e1ria"
+    },
+    "favorites": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs dos v\u00eddeos favoritos"
+    }
+  },
+  "required": [
+    "name",
+    "age_group"
+  ]
+}
