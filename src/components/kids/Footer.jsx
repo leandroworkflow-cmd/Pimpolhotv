@@ -69,11 +69,11 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-white/80 text-sm font-semibold">
                 <Mail className="w-4 h-4 text-pink-300 shrink-0" />
-                contato@pimpolhotv.com.br
+                contato@cloudx.com.br
               </li>
               <li className="flex items-center gap-2 text-white/80 text-sm font-semibold">
                 <Phone className="w-4 h-4 text-pink-300 shrink-0" />
-                +55 (11) 99999-9999
+                (31) 98373-3004
               </li>
               <li className="flex items-center gap-2 text-white/80 text-sm font-semibold">
                 <MapPin className="w-4 h-4 text-pink-300 shrink-0" />

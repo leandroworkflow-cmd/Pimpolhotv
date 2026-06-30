@@ -23,7 +23,7 @@ export default function Contact() {
     setError("");
     try {
       await db.integrations.Core.SendEmail({
-        to: "contato@pimpolhotv.com.br",
+        to: "contato@cloudx.com.br",
         subject: `[Contato Site] ${form.subject || "Mensagem de " + form.name}`,
         body: `Nome: ${form.name}\nE-mail: ${form.email}\n\nMensagem:\n${form.message}`,
         from_name: "Pimpolho TV - Formulário de Contato",
@@ -55,8 +55,8 @@ export default function Contact() {
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-purple-100">
               <h2 className="text-xl font-black text-gray-800 mb-5">📍 Nossos Contatos</h2>
               {[
-                { icon: Mail, label: "E-mail", value: "contato@pimpolhotv.com.br", color: "bg-purple-100 text-purple-600" },
-                { icon: Phone, label: "Telefone / WhatsApp", value: "+55 (11) 99999-9999", color: "bg-green-100 text-green-600" },
+                { icon: Mail, label: "E-mail", value: "contato@cloudx.com.br", color: "bg-purple-100 text-purple-600" },
+                { icon: Phone, label: "Telefone / WhatsApp", value: "(31) 98373-3004", color: "bg-green-100 text-green-600" },
                 { icon: MapPin, label: "Localização", value: "São Paulo, SP — Brasil", color: "bg-pink-100 text-pink-600" },
                 { icon: MessageSquare, label: "Atendimento", value: "Seg à Sex, 9h às 18h", color: "bg-blue-100 text-blue-600" },
               ].map((item) => (
@@ -77,7 +77,7 @@ export default function Contact() {
               <p className="text-white/90 text-sm font-semibold leading-relaxed">
                 Se você é criador de conteúdo infantil, escola ou marca voltada para crianças, adoraríamos conversar sobre como trabalhar juntos!
               </p>
-              <p className="mt-3 text-white/80 text-sm font-bold">📧 parcerias@pimpolhotv.com.br</p>
+              <p className="mt-3 text-white/80 text-sm font-bold">📧 contato@cloudx.com.br</p>
             </div>
           </div>
 

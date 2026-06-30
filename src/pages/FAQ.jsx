@@ -14,7 +14,7 @@ const faqs = [
   { q: "Como funciona o sistema de faixa etária?", a: "Cada vídeo é classificado por faixa etária: 0-3 anos, 4-6 anos, 7-9 anos ou 10-12 anos. Você pode filtrar por categoria para encontrar conteúdo adequado para a idade da criança." },
   { q: "A plataforma funciona no celular?", a: "Sim! A Pimpolho TV é totalmente responsiva e funciona perfeitamente em celulares, tablets e computadores." },
   { q: "Como entro em contato com o suporte?", a: "Acesse nossa página de Contato e preencha o formulário. Respondemos em até 48 horas úteis pelo e-mail informado." },
-  { q: "Como removo meu canal ou conta?", a: "Entre em contato conosco pelo e-mail contato@pimpolhotv.com.br solicitando a exclusão da sua conta e iremos processar em até 5 dias úteis." },
+  { q: "Como removo meu canal ou conta?", a: "Entre em contato conosco pelo e-mail contato@cloudx.com.br solicitando a exclusão da sua conta e iremos processar em até 5 dias úteis." },
 ];
 
 function FAQItem({ q, a }) {
