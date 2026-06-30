@@ -1,11 +1,9 @@
 import { db } from "@/api/base44Client";
-
 import React, { useState } from "react";
-
 import { Shield, ShieldCheck, ShieldX, Loader2, AlertTriangle } from "lucide-react";
 
 export default function AIContentFilter({ title, description, category, onResult }) {
-  const [status, setStatus] = useState("idle"); // idle | checking | approved | rejected
+  const [status, setStatus] = useState("idle");
   const [feedback, setFeedback] = useState(null);
 
   const checkContent = async () => {
@@ -15,32 +13,37 @@ export default function AIContentFilter({ title, description, category, onResult
 
     try {
       const result = await db.integrations.Core.InvokeLLM({
-        prompt: `Você é um filtro de segurança para uma plataforma de vídeos infantis chamada KidsTV.
-        
-Analise o conteúdo abaixo e determine se é ADEQUADO para crianças de até 12 anos.
+        prompt: `Você é um filtro de segurança para uma plataforma de vídeos infantis brasileira chamada Pimpolho TV, voltada para crianças de 0 a 12 anos.
 
-Critérios de APROVAÇÃO:
-- Conteúdo 100% infantil e familiar
-- Desenhos animados, músicas infantis, histórias, jogos educativos
-- Conteúdo educativo para crianças
-- Linguagem simples e adequada para crianças
+Analise o título, descrição e categoria do vídeo e determine se é ADEQUADO para o público infantil.
 
-Critérios de REPROVAÇÃO (marque como inadequado se houver qualquer um):
-- Violência, mesmo que leve
-- Conteúdo assustador ou de terror
-- Linguagem inadequada ou palavrões
-- Conteúdo sexual ou romântico
-- Política, ideologia ou religião específica
-- Fake news ou desinformação
-- Publicidade enganosa
-- Qualquer tema adulto (álcool, drogas, crime, armas)
-- Conteúdo para adolescentes acima de 12 anos
+APROVE conteúdos como:
+- Desenhos animados clássicos e modernos (Tom e Jerry, Looney Tunes, Masha e o Urso, Patrulha Canina, etc.)
+- Animações de aventura e ação INFANTIS (heróis, cowboys, super-heróis de desenho, aventuras mágicas)
+- Músicas infantis, cantigas de roda, músicas educativas
+- Histórias, contos de fadas, fábulas
+- Conteúdo educativo (alfabetização, matemática, ciências para crianças)
+- Jogos e brincadeiras infantis
+- Desenhos com conflitos típicos de aventura (perseguições, duelos de cowboys, batalhas de heróis de desenho)
+- Conteúdo em domínio público clássico (Lone Ranger, Popeye, Betty Boop, etc.)
+
+REPROVE apenas conteúdos com:
+- Violência gráfica realista, gore ou sangue explícito
+- Conteúdo sexual ou erótico de qualquer tipo
+- Palavrões ou linguagem extremamente ofensiva
+- Terror psicológico intenso ou imagens perturbadoras
+- Uso e apologia a drogas, álcool ou crime de forma explícita
+- Conteúdo claramente adulto (18+)
+- Fake news, desinformação ou discurso de ódio
+- Ideologia política extremista
+
+IMPORTANTE: Ação e aventura em contexto de DESENHO ANIMADO ou animação clássica é NORMAL e APROVADO. Não confunda violência lúdica de desenho com violência real.
 
 Título: "${title}"
 Descrição: "${description || "Sem descrição"}"
 Categoria: "${category}"
 
-Responda em JSON com: approved (boolean), reason (string em português, max 100 chars), safe_score (número de 0 a 10, onde 10 é totalmente seguro para crianças).`,
+Responda em JSON com: approved (boolean), reason (string em português, max 100 chars), safe_score (número de 0 a 10, onde 10 é totalmente seguro).`,
         response_json_schema: {
           type: "object",
           properties: {
@@ -51,7 +54,7 @@ Responda em JSON com: approved (boolean), reason (string em português, max 100 
         },
       });
 
-      const approved = result.approved && result.safe_score >= 7;
+      const approved = result.approved && result.safe_score >= 5;
       setStatus(approved ? "approved" : "rejected");
       setFeedback(result);
       onResult({ approved, feedback: result });
