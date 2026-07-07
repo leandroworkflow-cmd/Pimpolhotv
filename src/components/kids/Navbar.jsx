@@ -2,7 +2,8 @@ import { db } from "@/api/base44Client";
 
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Home, Star, Music, BookOpen, Gamepad2, Menu, X, Tv2, Info, Mail } from "lucide-react";
+import { Search, Home, Star, Music, BookOpen, Gamepad2, Menu, X, Tv2, Info, Mail, LogOut, PanelLeft } from "lucide-react";
+import Sidebar from "@/components/kids/Sidebar";
 
 const LOGO_URL = "/logo-pimpolhotv.png";
 
@@ -18,6 +19,7 @@ const categories = [
 export default function Navbar() {
   const [search, setSearch] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -34,14 +36,29 @@ export default function Navbar() {
     }
   };
 
+  const handleLogout = () => {
+    setMobileOpen(false);
+    db.auth.logout(window.location.origin);
+  };
+
   return (
+    <>
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b-4 border-purple-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-1 shrink-0">
-            <img src={LOGO_URL} alt="Pimpolho TV" className="h-12 object-contain" style={{ maxWidth: "180px" }} />
-          </Link>
+          {/* Menu + Logo */}
+          <div className="flex items-center gap-1 shrink-0">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              title="Menu"
+              className="p-2 -ml-2 rounded-full text-purple-600 hover:bg-purple-50 transition-colors"
+            >
+              <PanelLeft className="w-5 h-5" />
+            </button>
+            <Link to="/" className="flex items-center gap-1">
+              <img src={LOGO_URL} alt="Pimpolho TV" className="h-12 object-contain" style={{ maxWidth: "180px" }} />
+            </Link>
+          </div>
 
           {/* Search bar - desktop */}
           <form onSubmit={handleSearch} className="hidden md:flex items-center flex-1 max-w-md mx-6">
@@ -93,6 +110,15 @@ export default function Navbar() {
               <Link to="/admin" className="px-3 py-1.5 text-xs font-bold text-white bg-purple-600 rounded-full hover:bg-purple-700 transition-colors">
                 🛡️ Admin
               </Link>
+            )}
+            {user && (
+              <button
+                onClick={handleLogout}
+                title="Sair"
+                className="flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
+              >
+                <LogOut className="w-3.5 h-3.5" /> Sair
+              </button>
             )}
           </div>
 
@@ -157,9 +183,20 @@ export default function Navbar() {
                 🛡️ Painel Admin
               </Link>
             )}
+            {user && (
+              <button
+                onClick={handleLogout}
+                className="flex items-center justify-center gap-2 py-2 text-sm font-bold text-red-500 bg-red-50 rounded-full"
+              >
+                <LogOut className="w-4 h-4" /> Sair
+              </button>
+            )}
           </div>
         </div>
       )}
     </nav>
+
+    <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} user={user} />
+    </>
   );
 }

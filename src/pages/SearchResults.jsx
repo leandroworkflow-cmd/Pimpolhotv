@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import Navbar from "@/components/kids/Navbar";
 import VideoGrid from "@/components/kids/VideoGrid";
+import AdBanner from "@/components/kids/AdBanner";
 import { Loader2, Search } from "lucide-react";
 import SEOHead from "@/components/kids/SEOHead";
 
@@ -48,6 +49,8 @@ export default function SearchResults() {
             Resultados para: <span className="text-purple-600">"{query}"</span>
           </h1>
         </div>
+
+        <AdBanner type="horizontal" />
 
         {loading ? (
           <div className="flex items-center justify-center py-20">

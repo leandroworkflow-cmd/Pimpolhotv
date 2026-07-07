@@ -242,13 +242,16 @@ export default function Watch() {
                 )}
               </div>
 
+              <AdBanner type="horizontal" className="mt-6" />
+
               {/* Comments */}
               <CommentsSection videoId={id} />
             </motion.div>
           </div>
 
           {/* Sidebar - related videos */}
-          <div className="w-full xl:w-80 2xl:w-96">
+          <div className="w-full xl:w-80 2xl:w-96 space-y-4">
+            <AdBanner type="square" />
             <h3 className="text-lg font-black text-gray-800 mb-4 flex items-center gap-2">
               ✨ Vídeos Relacionados
             </h3>

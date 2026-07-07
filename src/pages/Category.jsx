@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 
 import Navbar from "@/components/kids/Navbar";
 import VideoGrid from "@/components/kids/VideoGrid";
+import AdBanner from "@/components/kids/AdBanner";
 import { Loader2 } from "lucide-react";
 import SEOHead from "@/components/kids/SEOHead";
 
@@ -82,6 +83,8 @@ export default function Category() {
             </button>
           ))}
         </div>
+
+        <AdBanner type="horizontal" />
 
         {/* Videos */}
         {loading ? (
