@@ -4,7 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Heart } from "lucide-react";
 
-const LOGO_URL = "https://media.db.com/images/public/6a3bf9e58663112b2c03128d/ce781f814_ChatGPTImage24dejunde202622_29_17.png";
+const LOGO_URL = "/logo-pimpolhotv.png";
 
 export default function Footer() {
   return (

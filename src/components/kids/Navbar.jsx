@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, Home, Star, Music, BookOpen, Gamepad2, Menu, X, Tv2, Info, Mail } from "lucide-react";
 
-const LOGO_URL = "https://media.db.com/images/public/6a3bf9e58663112b2c03128d/ce781f814_ChatGPTImage24dejunde202622_29_17.png";
+const LOGO_URL = "/logo-pimpolhotv.png";
 
 const categories = [
   { label: "Início", icon: Home, path: "/" },
