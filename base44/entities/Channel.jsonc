@@ -19,10 +19,18 @@
       "description": "Emoji do avatar do canal",
       "default": "\ud83c\udfac"
     },
+    "avatar_url": {
+      "type": "string",
+      "description": "URL da foto de perfil do canal (sobrepõe o emoji quando definida)"
+    },
     "banner_color": {
       "type": "string",
       "description": "Cor do banner",
       "default": "from-purple-500 to-pink-500"
+    },
+    "banner_url": {
+      "type": "string",
+      "description": "URL da imagem de banner do canal (sobrepõe a cor quando definida)"
     },
     "subscribers": {
       "type": "number",

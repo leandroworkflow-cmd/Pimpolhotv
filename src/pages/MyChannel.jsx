@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Navbar from "@/components/kids/Navbar";
 import VideoUpload from "@/components/kids/VideoUpload";
+import ImageUpload from "@/components/kids/ImageUpload";
 import AIContentFilter from "@/components/kids/AIContentFilter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,7 +49,7 @@ export default function MyChannel() {
   const [saving, setSaving] = useState(false);
 
   // Channel form
-  const [channelForm, setChannelForm] = useState({ name: "", description: "", avatar_emoji: "🎬", banner_color: "from-purple-500 to-pink-500" });
+  const [channelForm, setChannelForm] = useState({ name: "", description: "", avatar_emoji: "🎬", avatar_url: "", banner_color: "from-purple-500 to-pink-500", banner_url: "" });
   const [editingChannel, setEditingChannel] = useState(false);
 
   // Video form
@@ -68,7 +69,14 @@ export default function MyChannel() {
         const channels = await db.entities.Channel.filter({ owner_id: u.id });
         if (channels[0]) {
           setChannel(channels[0]);
-          setChannelForm({ name: channels[0].name, description: channels[0].description || "", avatar_emoji: channels[0].avatar_emoji || "🎬", banner_color: channels[0].banner_color || "from-purple-500 to-pink-500" });
+          setChannelForm({
+            name: channels[0].name,
+            description: channels[0].description || "",
+            avatar_emoji: channels[0].avatar_emoji || "🎬",
+            avatar_url: channels[0].avatar_url || "",
+            banner_color: channels[0].banner_color || "from-purple-500 to-pink-500",
+            banner_url: channels[0].banner_url || "",
+          });
           const vids = await db.entities.Video.filter({ channel_id: channels[0].id }, "-created_date", 100);
           setVideos(vids);
         }
@@ -173,24 +181,50 @@ export default function MyChannel() {
                 <Textarea value={channelForm.description} onChange={(e) => setChannelForm({ ...channelForm, description: e.target.value })} placeholder="Sobre o canal..." rows={2} className="rounded-xl mt-1" />
               </div>
               <div>
-                <Label className="text-sm font-bold">Emoji do Avatar</Label>
-                <div className="flex flex-wrap gap-2 mt-1">
-                  {emojis.map((e) => (
-                    <button key={e} onClick={() => setChannelForm({ ...channelForm, avatar_emoji: e })}
-                      className={`text-2xl p-2 rounded-xl transition-all ${channelForm.avatar_emoji === e ? "bg-purple-200 scale-110" : "bg-gray-100 hover:bg-purple-100"}`}>
-                      {e}
-                    </button>
-                  ))}
+                <Label className="text-sm font-bold">Foto do Banner do Canal</Label>
+                <div className="mt-1">
+                  <ImageUpload
+                    shape="banner"
+                    value={channelForm.banner_url}
+                    onUploaded={(url) => setChannelForm({ ...channelForm, banner_url: url })}
+                    onRemove={() => setChannelForm({ ...channelForm, banner_url: "" })}
+                  />
                 </div>
+                {!channelForm.banner_url && (
+                  <>
+                    <Label className="text-sm font-bold mt-3 block">Ou escolha uma cor de banner</Label>
+                    <div className="flex gap-2 mt-1 flex-wrap">
+                      {banners.map((b) => (
+                        <button key={b.value} onClick={() => setChannelForm({ ...channelForm, banner_color: b.value })}
+                          className={`h-8 w-24 rounded-lg bg-gradient-to-r ${b.value} border-2 transition-all ${channelForm.banner_color === b.value ? "border-gray-800 scale-105" : "border-transparent"}`} />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
               <div>
-                <Label className="text-sm font-bold">Cor do Banner</Label>
-                <div className="flex gap-2 mt-1 flex-wrap">
-                  {banners.map((b) => (
-                    <button key={b.value} onClick={() => setChannelForm({ ...channelForm, banner_color: b.value })}
-                      className={`h-8 w-24 rounded-lg bg-gradient-to-r ${b.value} border-2 transition-all ${channelForm.banner_color === b.value ? "border-gray-800 scale-105" : "border-transparent"}`} />
-                  ))}
+                <Label className="text-sm font-bold">Foto de Perfil do Canal</Label>
+                <div className="mt-1">
+                  <ImageUpload
+                    shape="circle"
+                    value={channelForm.avatar_url}
+                    onUploaded={(url) => setChannelForm({ ...channelForm, avatar_url: url })}
+                    onRemove={() => setChannelForm({ ...channelForm, avatar_url: "" })}
+                  />
                 </div>
+                {!channelForm.avatar_url && (
+                  <>
+                    <Label className="text-sm font-bold mt-3 block">Ou escolha um emoji</Label>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      {emojis.map((e) => (
+                        <button key={e} onClick={() => setChannelForm({ ...channelForm, avatar_emoji: e })}
+                          className={`text-2xl p-2 rounded-xl transition-all ${channelForm.avatar_emoji === e ? "bg-purple-200 scale-110" : "bg-gray-100 hover:bg-purple-100"}`}>
+                          {e}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
               <div className="flex gap-2">
                 <Button onClick={saveChannel} disabled={saving} className="bg-purple-600 hover:bg-purple-700 rounded-xl font-bold">
@@ -202,14 +236,24 @@ export default function MyChannel() {
             </div>
           </div>
         ) : (
-          <div className={`bg-gradient-to-r ${channel.banner_color} rounded-2xl p-5 mb-6 flex items-center gap-4 text-white shadow`}>
-            <div className="text-4xl">{channel.avatar_emoji}</div>
-            <div className="flex-1">
+          <div
+            className={`relative rounded-2xl mb-6 flex items-center gap-4 text-white shadow p-5 overflow-hidden ${channel.banner_url ? "" : `bg-gradient-to-r ${channel.banner_color}`}`}
+            style={channel.banner_url ? { backgroundImage: `url(${channel.banner_url})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
+          >
+            {channel.banner_url && <div className="absolute inset-0 bg-black/30" />}
+            <div className="relative w-16 h-16 rounded-full overflow-hidden bg-white/20 flex items-center justify-center text-4xl shrink-0 border-2 border-white/40">
+              {channel.avatar_url ? (
+                <img src={channel.avatar_url} alt={channel.name} className="w-full h-full object-cover" />
+              ) : (
+                channel.avatar_emoji
+              )}
+            </div>
+            <div className="relative flex-1">
               <h2 className="text-xl font-black">{channel.name}</h2>
               {channel.description && <p className="text-white/80 text-sm font-semibold">{channel.description}</p>}
               <p className="text-white/70 text-xs mt-1">{videos.length} vídeos</p>
             </div>
-            <div className="flex gap-2">
+            <div className="relative flex gap-2">
               <button onClick={() => setEditingChannel(true)} className="bg-white/20 hover:bg-white/30 text-white rounded-full p-2 transition-all">
                 <Pencil className="w-4 h-4" />
               </button>

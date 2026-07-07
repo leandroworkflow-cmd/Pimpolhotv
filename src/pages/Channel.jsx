@@ -58,10 +58,18 @@ export default function Channel() {
       <Navbar />
 
       {/* Banner */}
-      <div className={`bg-gradient-to-r ${channel.banner_color || "from-purple-500 to-pink-500"} py-10 px-4`}>
-        <div className="max-w-5xl mx-auto flex items-center gap-5">
-          <div className="w-20 h-20 rounded-full bg-white/30 flex items-center justify-center text-4xl shadow-lg">
-            {channel.avatar_emoji || "🎬"}
+      <div
+        className={`relative py-10 px-4 ${channel.banner_url ? "" : `bg-gradient-to-r ${channel.banner_color || "from-purple-500 to-pink-500"}`}`}
+        style={channel.banner_url ? { backgroundImage: `url(${channel.banner_url})`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
+      >
+        {channel.banner_url && <div className="absolute inset-0 bg-black/30" />}
+        <div className="relative max-w-5xl mx-auto flex items-center gap-5">
+          <div className="w-20 h-20 rounded-full bg-white/30 flex items-center justify-center text-4xl shadow-lg overflow-hidden shrink-0 border-2 border-white/40">
+            {channel.avatar_url ? (
+              <img src={channel.avatar_url} alt={channel.name} className="w-full h-full object-cover" />
+            ) : (
+              channel.avatar_emoji || "🎬"
+            )}
           </div>
           <div className="flex-1 text-white">
             <h1 className="text-2xl sm:text-3xl font-black drop-shadow">{channel.name}</h1>
