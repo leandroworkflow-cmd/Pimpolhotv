@@ -4,12 +4,14 @@ import React, { useRef, useState } from "react";
 import { Loader2, Camera, ImagePlus, X } from "lucide-react";
 
 /**
- * Generic image uploader used for the channel profile photo and the
- * channel banner photo (same idea as YouTube's "add photo" flows).
+ * Generic image uploader used for the channel profile photo, the
+ * channel banner photo, and video thumbnails (same idea as YouTube's
+ * "add photo" flows).
  *
  * shape:
  *  - "circle" -> profile photo (avatar)
  *  - "banner" -> wide channel banner/cover photo
+ *  - "thumbnail" -> 16:9 video thumbnail
  */
 export default function ImageUpload({ shape = "circle", value, onUploaded, onRemove, maxMB = 8 }) {
   const [uploading, setUploading] = useState(false);
@@ -89,6 +91,7 @@ export default function ImageUpload({ shape = "circle", value, onUploaded, onRem
   }
 
   // circle (avatar)
+  if (shape === "circle") {
   return (
     <div>
       <div className="flex items-center gap-3">
@@ -121,6 +124,49 @@ export default function ImageUpload({ shape = "circle", value, onUploaded, onRem
             </button>
           )}
         </div>
+      </div>
+      {error && <p className="text-xs text-red-500 font-bold mt-1">{error}</p>}
+      <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
+    </div>
+  );
+  }
+
+  // thumbnail (16:9 video cover)
+  return (
+    <div>
+      <div
+        onClick={openPicker}
+        className="relative group w-full aspect-video max-h-40 rounded-xl overflow-hidden cursor-pointer border-2 border-dashed border-purple-200 hover:border-purple-400 transition-all bg-gray-50 mx-auto"
+      >
+        {value ? (
+          <img src={value} alt="Thumbnail do vídeo" className="w-full h-full object-cover" />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
+            <ImagePlus className="w-6 h-6 mb-1" />
+            <span className="text-xs font-bold">Adicionar thumbnail</span>
+          </div>
+        )}
+
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-all">
+          {uploading ? (
+            <Loader2 className="w-6 h-6 text-white animate-spin" />
+          ) : (
+            <span className="opacity-0 group-hover:opacity-100 text-white text-xs font-bold flex items-center gap-1 transition-opacity">
+              <Camera className="w-4 h-4" /> {value ? "Trocar thumbnail" : "Adicionar thumbnail"}
+            </span>
+          )}
+        </div>
+
+        {value && !uploading && (
+          <button
+            type="button"
+            onClick={(ev) => { ev.stopPropagation(); onRemove?.(); }}
+            className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1.5 transition-colors"
+            title="Remover thumbnail"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        )}
       </div>
       {error && <p className="text-xs text-red-500 font-bold mt-1">{error}</p>}
       <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />

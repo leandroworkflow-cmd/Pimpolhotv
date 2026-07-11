@@ -324,8 +324,17 @@ export default function MyChannel() {
               </div>
             </div>
             <div>
-              <Label className="text-sm font-bold">Thumbnail (URL)</Label>
-              <Input value={videoForm.thumbnail_url} onChange={(e) => setVideoForm({ ...videoForm, thumbnail_url: e.target.value })} placeholder="https://..." className="rounded-xl mt-1" />
+              <Label className="text-sm font-bold">Thumbnail</Label>
+              <div className="mt-1 space-y-2">
+                <ImageUpload
+                  shape="thumbnail"
+                  value={videoForm.thumbnail_url}
+                  onUploaded={(url) => setVideoForm({ ...videoForm, thumbnail_url: url })}
+                  onRemove={() => setVideoForm({ ...videoForm, thumbnail_url: "" })}
+                />
+                <p className="text-xs text-center text-gray-400">— ou cole um link —</p>
+                <Input value={videoForm.thumbnail_url} onChange={(e) => setVideoForm({ ...videoForm, thumbnail_url: e.target.value })} placeholder="https://..." className="rounded-xl" />
+              </div>
             </div>
             <div>
               <Label className="text-sm font-bold">Descrição</Label>
